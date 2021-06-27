@@ -19,7 +19,8 @@ def load_posts(request):
         item = {
             'id':q.id,
             'title': q.title,
-            'author': q.author.user.username
+            'author': q.author.user.username,
+            'body': q.body
         }
         data.append(item)
     return JsonResponse({'data':data})

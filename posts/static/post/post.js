@@ -7,7 +7,7 @@ $.ajax({
     url:'/hello-ajax/',
     success: function (response) {
 
-        hellWorld.textContent = response.hello
+        // hellWorld.textContent = response.hello
     },
     error: function (error){
         console.log('Errr',error)
@@ -20,12 +20,28 @@ $.ajax({
     url: '/post-data/',
     success:function (response){
         const data = response.data
+        console.log(data)
         spinnerBox.classList.add('not-visible')
         setTimeout(()=>{
             data.forEach(ele=>{
-            postBox.innerHTML += `<h3>${ele.title}</h3><br>
-                                    <p>posted by ${ele.author}</p>`
-        })
+            postBox.innerHTML += `<div class="card mb-2">
+                                      <div class="card-body">
+                                        <h5 class="card-title">${ele.title}</h5>
+                                        <p class="card-text">${ele.body}</p>          
+                                      </div>
+                                       <div class="card-footer">
+                                            
+                                            <div class="row">
+                                            <div class="col-1">
+                                                <a href="#" class="btn btn-primary">Details</a>
+                                            </div>
+                                            <div class="col-1">
+                                                <a href="#" class="btn btn-primary">Like</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                   </div>`
+                        })
         },500)
     }
 })
