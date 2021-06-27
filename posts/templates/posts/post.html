@@ -6,10 +6,13 @@
 {% endblock %}
 {% block title %}{% endblock %}
 {% block content %}
-    <div id="spinner-box" class="text-center">
-        <div class="spinner-border" role="status"></div>
-    </div>
-    <div id="post-list"></div>
-    <div id="hello-ajax"></div>
 
+    <div id="post-list"></div>
+    <div class="text-center mb-3" id="end-load">
+        <div id="spinner-box" class="text-center">
+            <div class="spinner-border" role="status"></div>
+         </div>
+        <button class="btn btn-primary" id="load-btn"> Load more</button>
+
+    </div>
 {% endblock %}

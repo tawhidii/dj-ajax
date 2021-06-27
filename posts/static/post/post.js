@@ -1,26 +1,18 @@
-let hellWorld = document.getElementById('hello-ajax')
+
 let postBox = document.getElementById('post-list')
 let spinnerBox = document.getElementById('spinner-box')
-
-$.ajax({
-    type:'GET',
-    url:'/hello-ajax/',
-    success: function (response) {
-
-        // hellWorld.textContent = response.hello
-    },
-    error: function (error){
-        console.log('Errr',error)
-    }
-})
+let loadBtn = document.getElementById('load-btn')
+let loadMoreEnd = document.getElementById('end-load')
 
 
-$.ajax({
+let visible = 3
+
+const getData = () => {
+    $.ajax({
     type: 'GET',
-    url: '/post-data/',
+    url: `/post-data/${visible}`,
     success:function (response){
         const data = response.data
-        console.log(data)
         spinnerBox.classList.add('not-visible')
         setTimeout(()=>{
             data.forEach(ele=>{
@@ -43,5 +35,19 @@ $.ajax({
                                    </div>`
                         })
         },500)
+        if(response.size===0){
+            loadMoreEnd.textContent = 'No post yet posted'
+        }else if( response.size <= visible){
+            loadBtn.classList.add('not-visible')
+            loadMoreEnd.textContent = 'No more posts to load'
+        }
     }
 })
+}
+
+loadBtn.addEventListener('click',function (){
+    spinnerBox.classList.remove('not-visible')
+    visible +=3
+    getData()
+})
+getData()
