@@ -6,9 +6,10 @@
 {% endblock %}
 {% block title %}{% endblock %}
 {% block content %}
-    {% for obj in qs %}
-        {{ obj.title }} --- {{ obj.body }}
-    {% endfor %}
-    <div id="hello-world">hhhhhhh</div>
+    <div id="spinner-box">
+        <div class="spinner-border" role="status"></div>
+    </div>
+    <div id="post-list"></div>
+    <div id="hello-ajax">hhhhhhh</div>
 
 {% endblock %}
