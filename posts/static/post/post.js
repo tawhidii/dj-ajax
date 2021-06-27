@@ -1,5 +1,6 @@
 let hellWorld = document.getElementById('hello-ajax')
 let postBox = document.getElementById('post-list')
+let spinnerBox = document.getElementById('spinner-box')
 
 $.ajax({
     type:'GET',
@@ -19,11 +20,12 @@ $.ajax({
     url: '/post-data/',
     success:function (response){
         const data = response.data
-        data.forEach(ele=>{
+        spinnerBox.classList.add('not-visible')
+        setTimeout(()=>{
+            data.forEach(ele=>{
             postBox.innerHTML += `<h3>${ele.title}</h3><br>
                                     <p>posted by ${ele.author}</p>`
         })
-        console.log(data)
-
+        },500)
     }
 })
