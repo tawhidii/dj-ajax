@@ -21,9 +21,10 @@ def load_posts(request, num_posts):
     for q in qs:
         item = {
             'id': q.id,
-            'title': q.title,
+            'title': '' if q.title is None else q.title,
             'author': q.author.user.username,
             'liked': True if request.user in q.liked.all() else False,
+            'count': q.count_like,
             'body': q.body
         }
         data.append(item)

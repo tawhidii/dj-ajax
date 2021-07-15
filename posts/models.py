@@ -4,7 +4,7 @@ from profiles.models import Profile
 
 
 class Posts(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200,null=True,blank=True)
     body = models.TextField()
     liked = models.ManyToManyField(User, blank=True)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -14,3 +14,6 @@ class Posts(models.Model):
     def __str__(self):
         return str(self.title)
 
+    @property
+    def count_like(self):
+        return self.liked.all().count()

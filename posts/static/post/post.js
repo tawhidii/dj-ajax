@@ -18,8 +18,8 @@ const getData = () => {
             data.forEach(ele=>{
             postBox.innerHTML += `<div class="card mb-2">
                                       <div class="card-body">
-                                        <h5 class="card-title">${ele.title}</h5>
-                                        <p class="card-text">${ele.body}</p>          
+                                        <h5 class="card-title">${ele?.title}</h5>
+                                        <p class="card-text">${ele?.body}</p>          
                                       </div>
                                        <div class="card-footer">
                                             
@@ -28,7 +28,7 @@ const getData = () => {
                                                 <a href="#" class="btn btn-primary">Details</a>
                                             </div>
                                             <div class="col-1">
-                                                <a href="#" class="btn btn-primary">Like</a>
+                                                <a href="#" class="btn btn-primary">${ ele.liked ? `Unlike(${ele.count})`:`Like(${ele.count})`}</a>
                                             </div>
                                             </div>
                                         </div>
