@@ -31,5 +31,20 @@ def load_posts(request, num_posts):
     return JsonResponse({'data': data[lower:upper], 'size': size})
 
 
+def like_unlike_post(request):
+    if request.is_ajax():
+        pk = request.POST.get('pk')
+        obj = Posts.objects.get(pk=pk)
+        if request.user in obj.liked.all():
+            liked = False
+            obj.liked.remove(request.user)
+        else:
+            liked = True
+            obj.liked.add(request.user)
+        return JsonResponse({'liked': liked, 'count': obj.count_like})
+
+
+
+
 def first_ajax_hello_world(request):
     return JsonResponse({'hello': 'hello world !!'})

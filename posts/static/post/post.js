@@ -24,19 +24,23 @@ const csrftoken = getCookie('csrftoken');
 const likeUnlikePost = () =>{
     const likeUnLikeForm = document.getElementsByClassName('like-unlike-form')
     const likeUnlike = [...likeUnLikeForm]
+    console.log(likeUnlike)
     likeUnlike.forEach(form=>form.addEventListener('submit',event=>{
         event.preventDefault()
         const clickedId = event.target.getAttribute('data-form-id')
+        console.log(clickedId)
         const clickedBtn = document.getElementById(`like-unlike-${clickedId}`)
+        console.log(clickedBtn)
         $.ajax({
             type: 'POST',
-            url: "",
+            url: "/like-unlike/",
             data:{
                 'csrfmiddlewaretoken': csrftoken,
                 'pk':clickedId,
             },
             success:function (response){
                 console.log(response)
+                clickedBtn.textContent = response.liked ? `Unlike(${response.count})`: `Like(${response.count})`
             },
             error:function (error){
                 console.log(error)
@@ -45,6 +49,7 @@ const likeUnlikePost = () =>{
     }))
 
 }
+
 
 let visible = 3
 
@@ -72,7 +77,7 @@ const getData = () => {
                                     <div class="col-1">
                                         <form class="like-unlike-form" data-form-id="${ele.id}">
                        
-                                            <button href="#" class="btn btn-primary">${ ele.liked ? `Unlike(${ele.count})`:`Like(${ele.count})`}</button>
+                                            <button href="#" class="btn btn-primary" id="like-unlike-${ele.id}">${ ele.liked ? `Unlike(${ele.count})`:`Like(${ele.count})`}</button>
                                         </form>
                                     </div>
                                     </div>
@@ -80,6 +85,7 @@ const getData = () => {
                            </div>`
                         })
 
+            likeUnlikePost()
         },500)
         if(response.size===0){
             loadMoreEnd.textContent = 'No post yet posted'
@@ -97,3 +103,5 @@ loadBtn.addEventListener('click',function (){
     getData()
 })
 getData()
+
+
