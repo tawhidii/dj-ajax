@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block scripts %}
     <script src="{% static 'post/post.js' %}" defer></script>
 {% endblock %}
@@ -15,18 +15,21 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                ...
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success"> + Add</button>
+                  <form id="post-form">
+                      {% csrf_token %}
+                      {{ form|crispy }}
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success"> + Add</button>
+                      </div>
+                  </form>
               </div>
             </div>
           </div>
         </div>
         <!-- End Modal -->
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addPostModal">
+        <button type="button" class="btn btn-info mb-2" data-bs-toggle="modal" data-bs-target="#addPostModal">
           Add Post
         </button>
         <div id="post-list"></div>
