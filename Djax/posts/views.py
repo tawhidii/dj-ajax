@@ -1,12 +1,20 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Posts
+from .froms import PostForm
+from profiles.models import Profile
 
 
 def post_list_and_create(request):
-    qs = Posts.objects.all()
+    form = PostForm(request.POST or None)
+    if request.is_ajax():
+        if form.is_valid():
+            author = Profile.objects.get(user=request.user)
+            instance = form.save(commit=False)
+            instance.author = author
+            instance.save()
     context = {
-        'qs': qs
+        'form': form
     }
     return render(request, 'posts/post.html', context)
 
@@ -42,8 +50,6 @@ def like_unlike_post(request):
             liked = True
             obj.liked.add(request.user)
         return JsonResponse({'liked': liked, 'count': obj.count_like})
-
-
 
 
 def first_ajax_hello_world(request):
