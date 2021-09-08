@@ -13,6 +13,12 @@ def post_list_and_create(request):
             instance = form.save(commit=False)
             instance.author = author
             instance.save()
+            return JsonResponse({
+                'id': instance.id,
+                'title': instance.title,
+                'body': instance.body,
+                'author': instance.author.user.username
+            })
     context = {
         'form': form
     }
@@ -20,23 +26,24 @@ def post_list_and_create(request):
 
 
 def load_posts(request, num_posts):
-    visible_data = 3
-    upper = num_posts
-    lower = num_posts - visible_data
-    size = Posts.objects.all().count()
-    qs = Posts.objects.all()
-    data = []
-    for q in qs:
-        item = {
-            'id': q.id,
-            'title': '' if q.title is None else q.title,
-            'author': q.author.user.username,
-            'liked': True if request.user in q.liked.all() else False,
-            'count': q.count_like,
-            'body': q.body
-        }
-        data.append(item)
-    return JsonResponse({'data': data[lower:upper], 'size': size})
+    if request.is_ajax():
+        visible_data = 3
+        upper = num_posts
+        lower = num_posts - visible_data
+        size = Posts.objects.all().count()
+        qs = Posts.objects.all()
+        data = []
+        for q in qs:
+            item = {
+                'id': q.id,
+                'title': '' if q.title is None else q.title,
+                'author': q.author.user.username,
+                'liked': True if request.user in q.liked.all() else False,
+                'count': q.count_like,
+                'body': q.body
+            }
+            data.append(item)
+        return JsonResponse({'data': data[lower:upper], 'size': size})
 
 
 def like_unlike_post(request):
