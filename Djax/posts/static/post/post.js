@@ -8,12 +8,11 @@ const postForm = document.getElementById('post-form')
 const title = document.getElementById('id_title')
 const body = document.getElementById('id_body')
 const csrfToken = document.getElementsByName('csrfmiddlewaretoken')
-console.log('csrfToken',csrfToken[0].value)
+// console.log('csrfToken',csrfToken[0].value)
 const alertBox = document.getElementById('alert-message')
 
-
-
-
+const url = window.location.href
+// console.log(window.location.href)
 
 const getCookie =  name => {
     let cookieValue = null;
@@ -83,7 +82,7 @@ const getData = () => {
                                     
                                     <div class="row">
                                     <div class="col-1">
-                                        <a href="#" class="btn btn-primary">Details</a>
+                                        <a href="${url}${ele.id}" class="btn btn-primary">Details</a>
                                     </div>
                                     <div class="col-1">
                                         <form class="like-unlike-form" data-form-id="${ele.id}">

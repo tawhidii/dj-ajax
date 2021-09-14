@@ -61,3 +61,15 @@ def like_unlike_post(request):
 
 def first_ajax_hello_world(request):
     return JsonResponse({'hello': 'hello world !!'})
+
+
+def post_details(request, pk):
+    obj = Posts.objects.get(pk=pk)
+    form = PostForm()
+
+    context = {
+        'obj': obj,
+        'form': form
+
+    }
+    return render(request, 'posts/details.html', context)
