@@ -73,3 +73,15 @@ def post_details(request, pk):
 
     }
     return render(request, 'posts/details.html', context)
+
+
+def post_details_data_view(request, pk):
+    obj = Posts.objects.get(pk=pk)
+    data = {
+        'id': obj.id,
+        'title': obj.title,
+        'body': obj.body,
+        'author': obj.author.user.username,
+        'logged_in': request.user.username
+    }
+    return JsonResponse({'data': data})
