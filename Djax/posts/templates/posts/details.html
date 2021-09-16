@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block scripts %}
-    <script src="{%  static 'post/post-details.js' %}"></script>
+    <script src="{%  static 'post/post-details.js' %}" defer></script>
 {% endblock scripts %}
 {% block title %}
     {{ obj.title }} details
 {% endblock title %}
 {% block content %}
     <button id="back-btn" class="btn btn-secondary">Back</button>
-    <button id="edit-btn" class="btn btn-info">Edit</button>
-    <button id="delete-btn" class="btn btn-danger">Delete</button>
+    <button id="edit-btn" class="btn btn-info not-visible">Edit</button>
+    <button id="delete-btn" class="btn btn-danger not-visible">Delete</button>
     <!--Spinner-->
      <div id="spinner-box" class="text-center">
          <div class="spinner-border" role="status"></div>
      </div>
+    <div class="mt-1" id="post-box"></div>
 {% endblock content %}
