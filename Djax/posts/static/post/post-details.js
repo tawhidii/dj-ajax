@@ -28,5 +28,6 @@ const postDetailsData = () => {
             console.log(error)
         }
     })
+
 }
 postDetailsData()
