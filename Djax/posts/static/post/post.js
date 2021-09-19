@@ -161,3 +161,8 @@ postForm.addEventListener('submit',e=>{
 getData()
 
 
+const deleted_post = localStorage.getItem('title')
+if(deleted_post){
+    handleAlert('danger',`"${deleted_post} has been deleted !!"`)
+    localStorage.clear()
+}
