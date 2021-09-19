@@ -10,6 +10,7 @@
 {% block content %}
     <!-- update Modal -->
         <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -17,6 +18,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
+                  <div id="alert-message"></div>
                   <form id="update-form">
                       {% csrf_token %}
                       {{ form|crispy }}
